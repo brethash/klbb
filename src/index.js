@@ -144,7 +144,7 @@ function update ()
 
     if (cursors.up.isDown && player.body.touching.down)
     {
-        player.setVelocityY(-330);
+        player.setVelocityY(-430);
     }
 }
 
@@ -185,4 +185,6 @@ function hitBomb (player, bomb)
     player.anims.play('turn');
 
     gameOver = true;
+
+    alert ("Bummer dude.")
 }
