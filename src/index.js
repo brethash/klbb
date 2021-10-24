@@ -7,7 +7,7 @@ var config = {
     physics: {
         default: 'arcade',
         arcade: {
-            gravity: { y: 300 },
+            gravity: { y: 500 },
             debug: false
         }
     },
@@ -35,6 +35,7 @@ function preload ()
     this.load.image('ground', './assets/platform.png');
     this.load.image('star', './assets/star.png');
     this.load.image('bomb', './assets/bomb.png');
+    this.load.image('fire', './assets/fire.png');
     this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
@@ -120,6 +121,10 @@ function update ()
 {
     if (gameOver)
     {
+        if(game.input.activePointer.leftButtonDown()){
+            this.scene.restart();
+            gameOver = false
+        }
         return;
     }
 
@@ -178,6 +183,18 @@ function collectStar (player, star)
 
 function hitBomb (player, bomb)
 {
+
+    // add bomb explosion
+    var particles = this.add.particles('fire');
+
+    var emitter = particles.createEmitter({
+        speed: 100,
+        scale: { start: 1, end: 0 },
+        blendMode: 'ADD'
+    });
+
+    emitter.startFollow(bomb);
+
     this.physics.pause();
 
     player.setTint(0xff0000);
