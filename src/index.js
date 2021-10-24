@@ -121,10 +121,17 @@ function update ()
 {
     if (gameOver)
     {
-        if(game.input.activePointer.leftButtonDown()){
-            this.scene.restart();
-            gameOver = false
-        }
+        let clickButton = this.add.text(300, 300, 'Try Again?!', { fill: '#0f0', backgroundColor: '#fc035a', fontSize: '38px' })
+            .setPadding({ x: 20, y: 10 })
+            .setInteractive()
+            .on('pointerdown', () => 
+            {
+                this.scene.restart();
+                gameOver = false;
+            });
+         // TODO: figure out why i can't update the text style
+         // .on('pointerover', () => enterButtonHoverState(clickButton) )
+         // .on('pointerout', () => enterButtonRestState(clickButton) );
         return;
     }
 
@@ -152,6 +159,15 @@ function update ()
         player.setVelocityY(-430);
     }
 }
+
+// TODO: figure out why i can't update the text style
+// function enterButtonHoverState(button) {
+//     button.setStyle({ fill: '#ff0'});
+//   }
+
+// function enterButtonRestState(button) {
+//     button.setStyle({ fill: '#0f0' });
+//   }
 
 function collectStar (player, star)
 {
@@ -203,5 +219,4 @@ function hitBomb (player, bomb)
 
     gameOver = true;
 
-    alert ("Bummer dude.")
 }
