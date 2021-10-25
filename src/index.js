@@ -32,6 +32,7 @@ var gameOver = false;
 var scoreText;
 var createScene;
 
+
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -44,12 +45,9 @@ function preload ()
     this.load.image('rockets', './assets/rocket.png');
     this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
     this.load.audio("goatsong", ["./assets/audio/goatminjr.ogg"]);
-
 }
 
-function createScene() {
-    goatsong = this.sound.add("goatsong", { loop: true });
-}
+
 
 function create ()
 {
@@ -135,7 +133,7 @@ function create ()
 
     // Add music
     this.music =  this.sound.add('goatsong', {
-        volume: 0.2,
+        volume: 0.5,
         loop: true
     })
 
