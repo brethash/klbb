@@ -31,6 +31,7 @@ var score = 0;
 var gameOver = false;
 var scoreText;
 
+
 var game = new Phaser.Game(config);
 
 function preload ()
@@ -42,10 +43,15 @@ function preload ()
     this.load.image('fire', './assets/fire.png');
     this.load.image('rockets', './assets/rocket.png');
     this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+    this.load.audio("goatsong", ["./assets/audio/goatminjr.ogg"]);
+
 }
+
 
 function create ()
 {
+    
+
     //  A simple background for our game
     this.add.image(400, 300, 'sky');
 
@@ -123,7 +129,29 @@ function create ()
     this.physics.add.overlap(player, rockets, collectRocket, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
+
+    // Add music
+    this.music =  this.sound.add('goatsong', {
+        volume: 0.5,
+        loop: true
+    })
+
+    if (!this.sound.locked)
+    {
+        // already unlocked so play
+        this.music.play()
+    }
+    else
+    {
+        // wait for 'unlocked' to fire and then play
+        this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+            this.music.play()
+        })
+    }
+
+   
 }
+
 
 function update ()
 {
@@ -249,3 +277,4 @@ function hitBomb (player, bomb)
     gameOver = true;
 
 }
+
