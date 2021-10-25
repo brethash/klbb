@@ -1,5 +1,7 @@
 import 'phaser';
 
+// todo: cleanup, timer, scene transition (scene2.html), 
+// name, object modeling, ~get the star from the other project and make them shooting stars~, maybe he farts when he jumps?
 var config = {
     type: Phaser.AUTO,
     width: 800,
@@ -20,7 +22,9 @@ var config = {
 
 var player;
 var stars;
+var rockets;
 var bombs;
+var ground;
 var platforms;
 var cursors;
 var score = 0;
@@ -36,6 +40,7 @@ function preload ()
     this.load.image('star', './assets/star.png');
     this.load.image('bomb', './assets/bomb.png');
     this.load.image('fire', './assets/fire.png');
+    this.load.image('rockets', './assets/rocket.png');
     this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
 }
 
@@ -49,7 +54,7 @@ function create ()
 
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
-    platforms.create(400, 568, 'ground').setScale(2).refreshBody();
+    ground = platforms.create(400, 568, 'ground').setScale(2).refreshBody();
 
     //  Now let's create some ledges
     platforms.create(600, 400, 'ground');
@@ -87,32 +92,35 @@ function create ()
     //  Input Events
     cursors = this.input.keyboard.createCursorKeys();
 
-    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
-    stars = this.physics.add.group({
-        key: 'star',
+    //  Some rockets to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+    rockets = this.physics.add.group({
+        key: 'rockets',
         repeat: 11,
         setXY: { x: 12, y: 0, stepX: 70 }
     });
 
-    stars.children.iterate(function (child) {
+    rockets.children.iterate(function (child) {
 
         //  Give each star a slightly different bounce
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
 
     });
 
+    makeStars(this);
+
     bombs = this.physics.add.group();
 
     //  The score
     scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
-    //  Collide the player and the stars with the platforms
+    //  Collide the player and the rockets with the platforms
     this.physics.add.collider(player, platforms);
-    this.physics.add.collider(stars, platforms);
+    this.physics.add.collider(rockets, platforms);
+    
     this.physics.add.collider(bombs, platforms);
 
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.overlap(player, stars, collectStar, null, this);
+    //  Checks to see if the player overlaps with any of the rockets, if he does call the collectStar function
+    this.physics.add.overlap(player, rockets, collectRocket, null, this);
 
     this.physics.add.collider(player, bombs, hitBomb, null, this);
 }
@@ -157,6 +165,7 @@ function update ()
     if (cursors.up.isDown && player.body.touching.down)
     {
         player.setVelocityY(-430);
+        makeStars(this);
     }
 }
 
@@ -169,18 +178,38 @@ function update ()
 //     button.setStyle({ fill: '#0f0' });
 //   }
 
-function collectStar (player, star)
+function makeStars(context)
 {
-    star.disableBody(true, true);
+    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
+    stars = context.physics.add.group({
+        key: 'star',
+        repeat: 11,
+        setXY: { x: (player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400), y: 0, stepX: 35 }
+    });
+
+    stars.children.iterate(function (child) {
+
+        //  Give each rocket a slightly different bounce
+        child.setBounceY(Phaser.Math.FloatBetween(0.8, 1.0));
+        child.allowGravity = false;
+        child.setVelocity(Phaser.Math.Between(-200, 200), 20);
+    });
+
+    context.physics.add.collider(stars, ground);
+}
+
+function collectRocket (player, rocket)
+{
+    rocket.disableBody(true, true);
 
     //  Add and update the score
     score += 10;
     scoreText.setText('Score: ' + score);
 
-    if (stars.countActive(true) === 0)
+    if (rockets.countActive(true) === 0)
     {
-        //  A new batch of stars to collect
-        stars.children.iterate(function (child) {
+        //  A new batch of rockets to collect
+        rockets.children.iterate(function (child) {
 
             child.enableBody(true, child.x, 0, true, true);
 
