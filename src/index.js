@@ -30,7 +30,7 @@ var cursors;
 var score = 0;
 var gameOver = false;
 var scoreText;
-var createScene;
+
 
 var game = new Phaser.Game(config);
 
@@ -47,9 +47,6 @@ function preload ()
 
 }
 
-function createScene() {
-    goatsong = this.sound.add("goatsong", { loop: true });
-}
 
 function create ()
 {
@@ -135,7 +132,7 @@ function create ()
 
     // Add music
     this.music =  this.sound.add('goatsong', {
-        volume: 0.2,
+        volume: 0.5,
         loop: true
     })
 
