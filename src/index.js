@@ -163,7 +163,9 @@ function update ()
             .setInteractive()
             .on('pointerdown', () => 
             {
+                this.music.stop();
                 this.scene.restart();
+                
                 gameOver = false;
             });
          // TODO: figure out why i can't update the text style
