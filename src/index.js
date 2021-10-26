@@ -163,6 +163,7 @@ function update ()
             .setInteractive()
             .on('pointerdown', () => 
             {
+                this.music.stop();
                 this.scene.restart();
                 
                 gameOver = false;
