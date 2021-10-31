@@ -1,29 +1,34 @@
 {
-  "name": "phaser3-project-template",
-  "version": "1.0.9",
-  "description": "A Phaser 3 Project Template",
-  "main": "src/index.js",
+  "name": "klbb-the-game",
+  "version": "0.1.0",
+  "description": "Klbb: The Game",
+  "keywords": [],
+  "devDependencies": {
+    "expose-loader": "3.0.0",
+    "ts-loader": "9.2.5",
+    "typescript": "4.3.5",
+    "webpack": "5.50.0",
+    "webpack-cli": "4.9.0",
+    "webpack-dev-server": "3.11.2"
+  },
+  "dependencies": {
+    "phaser": "3.55.2"
+  },
   "scripts": {
     "build": "webpack",
-    "start": "npm run build && webpack-dev-server --port=8000"
+    "dev": "webpack --mode development && webpack serve --mode development"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/photonstorm/phaser3-project-template.git"
+    "url": "git+https://github.com/brethash/klbb.git"
   },
-  "author": "Richard Davey <rdavey@gmail.com> (http://www.photonstorm.com)",
+  "author": {
+    "name": "brethash",
+    "email": "bret@brethash.com"
+  },
   "license": "MIT",
-  "licenseUrl": "http://www.opensource.org/licenses/mit-license.php",
   "bugs": {
-    "url": "https://github.com/photonstorm/phaser3-project-template/issues"
+    "url": "https://github.com/brethash/klbb/issues"
   },
-  "homepage": "https://github.com/photonstorm/phaser3-project-template#readme",
-  "devDependencies": {
-    "raw-loader": "^0.5.1",
-    "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.0"
-  },
-  "dependencies": {
-    "phaser": "^3.3.0"
-  }
+  "homepage": "https://github.com/brethash/klbb#readme"
 }
