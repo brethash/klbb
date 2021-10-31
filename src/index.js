@@ -2,6 +2,7 @@ import 'phaser';
 
 // todo: cleanup, timer, scene transition (scene2.html), 
 // name, object modeling, ~get the star from the other project and make them shooting stars~, maybe he farts when he jumps?
+// todo2: add gamepad support
 var config = {
     type: Phaser.AUTO,
     width: 800,
