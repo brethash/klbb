@@ -17,6 +17,6 @@ Run the following commands in your terminal:
 |---------|-------------|
 | `npm install` | Install dependencies and launch browser with examples.|
 | `npm start` | Launch browser to show the examples. <br> Press `Ctrl + c` to kill **http-server** process. |
-| `npm build run` | Compile stuff to `build` for deploying to places |
+| `npm run dev` | Compile stuff to `dist` for deploying to places |
 
 You should be able to view the game at http://localhost:8000 in a local browser!
