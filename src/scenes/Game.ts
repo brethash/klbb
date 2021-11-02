@@ -1,7 +1,12 @@
+import Phaser from 'phaser';
 import { Image } from '../objects/image';
 import { Character } from '../objects/character';
 
-export class MainScene extends Phaser.Scene {
+export default class Demo extends Phaser.Scene {
+  constructor() {
+    super('GameScene');
+  }
+
   private player: Phaser.Physics.Arcade.Sprite;
   private stars: Phaser.Arcade.Group;
   private rockets: Phaser.Physics.Arcade.Group;
@@ -9,16 +14,12 @@ export class MainScene extends Phaser.Scene {
   private ground: Image;
   private platforms: Phaser.Physics.Arcade.StaticGroup;
   private cursors: Phaser.Input.Keyboard;
-  private score: 0;
+  private score: number = 0;
   private gameOver: Boolean;
   private scoreText: Phaser.GameObjects.Text;
   private music: Phaser.Sound;
 
-  constructor() {
-    super({ key: 'MainScene' });
-  }
-
-  preload(): void {
+  preload() {
     this.load.image('sky', './assets/sky.png');
     this.load.image('ground', './assets/platform.png');
     this.load.image('star', './assets/star.png');
@@ -29,30 +30,21 @@ export class MainScene extends Phaser.Scene {
     this.load.audio("goatsong", ["./assets/audio/goatminjr.ogg"]);
   }
 
-  create(): void {
-    // const particles = this.add.particles('redParticle');
-
-    // const emitter = particles.createEmitter({
-    //   speed: 100,
-    //   scale: { start: 0.5, end: 0 },
-    //   blendMode: 'ADD'
-    // });
-
-    // this.myRedhat = new Redhat({
-    //   scene: this,
-    //   x: 400,
-    //   y: 300,
-    //   texture: 'redhat'
-    // });
-
-    // emitter.startFollow(this.myRedhat);
-
-    //  A simple background for our game
+  create() {
     this.add.image(400, 300, 'sky');
 
+    // const logo = this.add.image(400, 70, 'star');
+
+    // this.tweens.add({
+    //   targets: logo,
+    //   y: 350,
+    //   duration: 1500,
+    //   ease: 'Sine.inOut',
+    //   yoyo: true,
+    //   repeat: -1
+    // });
     //  The platforms group contains the ground and the 2 ledges we can jump on
     this.platforms = this.physics.add.staticGroup();
-
     //  Here we create the ground.
     //  Scale it to fit the width of the game (the original sprite is 400x32 in size)
     this.ground = this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
@@ -107,7 +99,7 @@ export class MainScene extends Phaser.Scene {
 
     });
 
-    // makeStars(this);
+    this.makeStars();
 
     this.bombs = this.physics.add.group();
 
@@ -120,29 +112,29 @@ export class MainScene extends Phaser.Scene {
     
     this.physics.add.collider(this.bombs, this.platforms);
 
-    // //  Checks to see if the player overlaps with any of the rockets, if he does call the collectStar function
-    // this.physics.add.overlap(player, rockets, collectRocket, null, this);
+    //  Checks to see if the player overlaps with any of the rockets, if he does call the collectStar function
+    this.physics.add.overlap(this.player, this.rockets, this.collectRocket, null, this);
 
-    // this.physics.add.collider(player, bombs, hitBomb, null, this);
+    this.physics.add.collider(this.player, this.bombs, this.hitBomb, null, this);
 
-    // // Add music
-    // this.music =  this.sound.add('goatsong', {
-    //     volume: 0.5,
-    //     loop: true
-    // })
+    // Add music
+    this.music =  this.sound.add('goatsong', {
+        volume: 0.5,
+        loop: true
+    })
 
-    // if (!this.sound.locked)
-    // {
-    //     // already unlocked so play
-    //     this.music.play()
-    // }
-    // else
-    // {
-    //     // wait for 'unlocked' to fire and then play
-    //     this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
-    //         this.music.play()
-    //     })
-    // }
+    if (!this.sound.locked)
+    {
+        // already unlocked so play
+        this.music.play()
+    }
+    else
+    {
+        // wait for 'unlocked' to fire and then play
+        this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
+            this.music.play()
+        })
+    }
   }
 
   update(): void {

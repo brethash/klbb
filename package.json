@@ -1,34 +1,30 @@
 {
   "name": "klbb-the-game",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Klbb: The Game",
-  "keywords": [],
-  "devDependencies": {
-    "expose-loader": "3.0.0",
-    "ts-loader": "9.2.5",
-    "typescript": "4.3.5",
-    "webpack": "5.50.0",
-    "webpack-cli": "4.9.0",
-    "webpack-dev-server": "3.11.2"
-  },
-  "dependencies": {
-    "phaser": "3.55.2"
-  },
+  "main": "dist/index.js",
   "scripts": {
-    "build": "webpack",
-    "dev": "webpack --mode development && webpack serve --mode development"
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/brethash/klbb.git"
   },
-  "author": {
-    "name": "brethash",
-    "email": "bret@brethash.com"
-  },
+  "author": "Bret Hash and Jordan Kolbaba",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/brethash/klbb/issues"
   },
-  "homepage": "https://github.com/brethash/klbb#readme"
+  "homepage": "https://github.com/brethash/klbb#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.27",
+    "@rollup/plugin-alias": "^3.1.2",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-replace": "^2.3.4",
+    "phaser": "^3.55.0",
+    "typescript": "^4.1.3",
+    "vite": "^2.0.0-beta.65"
+  }
 }
