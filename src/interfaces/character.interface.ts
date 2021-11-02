@@ -1,7 +1,10 @@
+// todo: should define a Physics params object
 export interface CharacterConstructor {
   scene: Phaser.Scene;
-  x: number;
-  y: number;
-  texture: string | Phaser.Textures.Texture;
-  frame?: string | number;
+  spriteId: string;
+  startX: number;
+  startY: number;
+  physics: object;
+  jumpSound?: string;
+  hitPoints?: number;
 }

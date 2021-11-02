@@ -7,7 +7,7 @@ export default class Demo extends Phaser.Scene {
     super('GameScene');
   }
 
-  private player: Phaser.Physics.Arcade.Sprite;
+  private player: Character;
   private stars: Phaser.Arcade.Group;
   private rockets: Phaser.Physics.Arcade.Group;
   private bombs: Phaser.Physics.Arcade.Group;
@@ -27,7 +27,8 @@ export default class Demo extends Phaser.Scene {
     this.load.image('fire', './assets/fire.png');
     this.load.image('rockets', './assets/rocket.png');
     this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
-    this.load.audio("goatsong", ["./assets/audio/goatminjr.ogg"]);
+    this.load.audio("goatSong", ["./assets/audio/goatminjr.ogg"]);
+    this.load.audio("jumpSound", ["./assets/audio/hero_jump.wav"])
   }
 
   create() {
@@ -55,7 +56,18 @@ export default class Demo extends Phaser.Scene {
     this.platforms.create(750, 220, 'ground');
 
     // The player and its settings
-    this.player = this.physics.add.sprite(100, 450, 'dude');
+    const playerConfig = {
+        scene: this,
+          spriteId: 'dude',
+          startX: 100,
+          startY: 450,
+          jumpSound: 'jumpSound',
+          physics: {},
+          hitPoints: 3
+      }
+
+    this.player = new Character(playerConfig);
+    console.log(this.player.jumpSound);
 
     // //  Player physics properties. Give the little guy a slight bounce.
     this.player.setBounce(0.2);
@@ -118,21 +130,21 @@ export default class Demo extends Phaser.Scene {
     this.physics.add.collider(this.player, this.bombs, this.hitBomb, null, this);
 
     // Add music
-    this.music =  this.sound.add('goatsong', {
+    this.music =  this.sound.add('goatSong', {
         volume: 0.5,
         loop: true
-    })
+    });
 
     if (!this.sound.locked)
     {
         // already unlocked so play
-        this.music.play()
+        this.music.play();
     }
     else
     {
         // wait for 'unlocked' to fire and then play
         this.sound.once(Phaser.Sound.Events.UNLOCKED, () => {
-            this.music.play()
+            this.music.play();
         })
     }
   }
@@ -177,6 +189,10 @@ export default class Demo extends Phaser.Scene {
 
       if (this.cursors.up.isDown && this.player.body.touching.down)
       {
+          this.sound.play(this.player.jumpSound, {
+              volume: 0.9,
+              loop: false
+          });
           this.player.setVelocityY(-430);
           this.makeStars();
       }
