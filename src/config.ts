@@ -1,19 +1,19 @@
-import { MainScene } from './scenes/main-scene';
+import Phaser from 'phaser';
 
-export const GameConfig: Phaser.Types.Core.GameConfig = {
-  title: 'Webpack-Boilerplate',
-  url: 'https://github.com/digitsensitive/phaser3-typescript',
-  version: '2.0',
-  width: 800,
-  height: 600,
-  backgroundColor: 0x3a404d,
+export default {
   type: Phaser.AUTO,
   parent: 'game',
+  backgroundColor: '#33A5E7',
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 200 }
+      gravity: { y: 500 }
     }
   },
-  scene: [MainScene]
+  scale: {
+    width: 800,
+    height: 600,
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  }
 };
