@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { Image } from '../objects/image';
 import { Character } from '../objects/character';
+import {Physics} from "../objects/physics";
 
 export default class Demo extends Phaser.Scene {
   constructor() {
@@ -62,9 +63,9 @@ export default class Demo extends Phaser.Scene {
           startX: 100,
           startY: 450,
           jumpSound: 'jumpSound',
-          physics: {},
+          physics: new Physics({ bounceX: 0.2, colliderWorldBounds: true}),
           hitPoints: 3
-      }
+      };
 
     this.player = new Character(playerConfig);
     console.log(this.player.jumpSound);
