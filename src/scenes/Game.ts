@@ -18,6 +18,7 @@ export default class Demo extends Phaser.Scene {
   private score: number = 0;
   private gameOver: Boolean;
   private scoreText: Phaser.GameObjects.Text;
+  private hitPointsText: Phaser.GameObjects.Text;
   private music: Phaser.Sound;
 
   preload() {
@@ -57,6 +58,7 @@ export default class Demo extends Phaser.Scene {
     this.platforms.create(750, 220, 'ground');
 
     // The player and its settings
+    this.hitPoints = 3;
     const playerConfig = {
         scene: this,
           spriteId: 'dude',
@@ -68,11 +70,6 @@ export default class Demo extends Phaser.Scene {
       };
 
     this.player = new Character(playerConfig);
-    console.log(this.player.jumpSound);
-
-    // //  Player physics properties. Give the little guy a slight bounce.
-    this.player.setBounce(0.2);
-    this.player.setCollideWorldBounds(true);
 
     //  Our player animations, turning, walking left and walking right.
     this.anims.create({
@@ -109,7 +106,6 @@ export default class Demo extends Phaser.Scene {
 
         //  Give each star a slightly different bounce
         child.setBounceY(Phaser.Math.FloatBetween(0.4, 0.8));
-
     });
 
     this.makeStars();
@@ -118,6 +114,7 @@ export default class Demo extends Phaser.Scene {
 
     //  The score
     this.scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', color: '#000' });
+    this.hitPointsText = this.add.text(16, 40, 'hit points: ' + this.player.hitPoints , { fontSize: '32px', color: '#000' });
 
     // //  Collide the player and the rockets with the platforms
     this.physics.add.collider(this.player, this.platforms);
@@ -229,9 +226,7 @@ export default class Demo extends Phaser.Scene {
       {
           //  A new batch of rockets to collect
           this.rockets.children.iterate(function (child: Phaser.Physics.Arcade.Sprite) {
-
               child.enableBody(true, child.x, 0, true, true);
-
           });
 
           var x = (this.player.x < 400) ? Phaser.Math.Between(400, 800) : Phaser.Math.Between(0, 400);
@@ -264,7 +259,15 @@ export default class Demo extends Phaser.Scene {
 
       this.player.anims.play('turn');
 
-      this.gameOver = true;
+      this.player.hitPoints--;
 
+      if (this.player.hitPoints == 0) {
+          this.gameOver = true;
+          this.hitPointsText.setText("hit points: 0");
+      } else {
+          this.physics.resume();
+          this.hitPointsText.setText("hit points: " + this.player.hitPoints);
+          this.player.setTint();
+      }
   }
 }
