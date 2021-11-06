@@ -22,19 +22,25 @@ export default class Demo extends Phaser.Scene {
   private music: Phaser.Sound;
 
   preload() {
+
+      this.load.spritesheet('dude', './assets/characters/dude.png', { frameWidth: 32, frameHeight: 48 });
+      this.load.spritesheet('potatohat', './assets/characters/potatohat.png', { frameWidth: 32, frameHeight: 54 });
+      this.load.spritesheet('vgchk', './assets/characters/vgchk.png', { frameWidth: 32, frameHeight: 24 });
+
     this.load.image('sky', './assets/sky.png');
+    this.load.image('appleWorld', './assets/scenes/main/appleWorld.png');
     this.load.image('ground', './assets/platform.png');
     this.load.image('star', './assets/star.png');
     this.load.image('bomb', './assets/bomb.png');
     this.load.image('fire', './assets/fire.png');
     this.load.image('rockets', './assets/rocket.png');
-    this.load.spritesheet('dude', './assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+
     this.load.audio("goatSong", ["./assets/audio/goatminjr.ogg"]);
     this.load.audio("jumpSound", ["./assets/audio/hero_jump.wav"])
   }
 
   create() {
-    this.add.image(400, 300, 'sky');
+    this.add.image(400, 300, 'appleWorld');
 
     // const logo = this.add.image(400, 70, 'star');
 
@@ -61,7 +67,7 @@ export default class Demo extends Phaser.Scene {
     this.hitPoints = 3;
     const playerConfig = {
         scene: this,
-          spriteId: 'dude',
+          spriteId: 'potatohat',
           startX: 100,
           startY: 450,
           jumpSound: 'jumpSound',
@@ -72,25 +78,39 @@ export default class Demo extends Phaser.Scene {
     this.player = new Character(playerConfig);
 
     //  Our player animations, turning, walking left and walking right.
+    // todo: maybe move animations into Character?
     this.anims.create({
         key: 'left',
-        frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+        frames: this.anims.generateFrameNumbers('potatohat', { start: 0, end: 3 }),
         frameRate: 10,
         repeat: -1
     });
 
     this.anims.create({
         key: 'turn',
-        frames: [ { key: 'dude', frame: 4 } ],
+        frames: [ { key: 'potatohat', frame: 4 } ],
         frameRate: 20
     });
 
     this.anims.create({
         key: 'right',
-        frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+        frames: this.anims.generateFrameNumbers('potatohat', { start: 5, end: 8 }),
         frameRate: 10,
         repeat: -1
     });
+
+   // bgawk bgawk
+   // should they spawn in random spots? maybe yes.
+   // const chickenConfig = {
+   //     scene: this,
+   //     spriteId: 'chicken',
+   //     startX: 300,
+   //     startY: 450,
+   //     physics: new Physics({ bounceX: 0.2, colliderWorldBounds: true}),
+   //     hitPoints: 1
+   // };
+   //
+   // this.chicken = new Character(chickenConfig);
 
     // //  Input Events
     this.cursors = this.input.keyboard.createCursorKeys();
