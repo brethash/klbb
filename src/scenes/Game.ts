@@ -27,7 +27,7 @@ export default class Demo extends Phaser.Scene {
       this.load.spritesheet('potatohat', './assets/characters/potatohat.png', { frameWidth: 32, frameHeight: 54 });
       this.load.spritesheet('vgchk', './assets/characters/vgchk.png', { frameWidth: 32, frameHeight: 24 });
 
-    this.load.image('sky', './assets/sky.png');
+    this.load.image('sky', './assets/scenes/sky.png');
     this.load.image('appleWorld', './assets/scenes/main/appleWorld.png');
     this.load.image('ground', './assets/platform.png');
     this.load.image('star', './assets/star.png');
@@ -43,7 +43,6 @@ export default class Demo extends Phaser.Scene {
     this.add.image(400, 300, 'appleWorld');
 
     // const logo = this.add.image(400, 70, 'star');
-
     // this.tweens.add({
     //   targets: logo,
     //   y: 350,
