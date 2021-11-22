@@ -32,7 +32,7 @@ export default class TitleScreenScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor('#421278');
 
-    const text = this.add.text(400, 300, 'Hello World', { fixedWidth: 150, fixedHeight: 36 })
+    const text = this.add.text(400, 300, 'Who dis?', { fixedWidth: 150, fixedHeight: 36 })
     text.setOrigin(0.5, 0.5)
 
     text.setInteractive().on('pointerdown', () => {
