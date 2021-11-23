@@ -1,6 +1,6 @@
 import { CharacterConstructor } from '../interfaces/character.interface';
 import Phaser from "phaser";
-import {Physics} from "./physics";
+import { Physics } from "./physics";
 
 export class Character extends Phaser.Physics.Arcade.Sprite {
 
@@ -11,9 +11,9 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
   constructor(aParams: CharacterConstructor) {
     super(aParams.scene,
-        aParams.startX,
-        aParams.startY,
-        aParams.spriteId);
+      aParams.startX,
+      aParams.startY,
+      aParams.spriteId);
 
     this.initSprite();
     this.initPhysics(aParams.physics);
@@ -31,7 +31,7 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
 
   private initSprite() {
     // todo: this is lol
-      // todo: lolmode where this is set to a random val eacj jump
+    // todo: lolmode where this is set to a random val eacj jump
     this.setScale(1.0);
   }
 
@@ -39,11 +39,11 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
     this.scene.physics.world.enable(this);
 
     if (physics.velocityX && physics.velocityY) {
-        this.body.setVelocity(physics.velocityX, physics.velocityY);
+      this.body.setVelocity(physics.velocityX, physics.velocityY);
     } else if (physics.velocityX) {
-        this.body.setVelocityX(physics.velocityX);
+      this.body.setVelocityX(physics.velocityX);
     } else if (physics.velocityY) {
-        this.body.setVelocityY(physics.velocityY);
+      this.body.setVelocityY(physics.velocityY);
     }
 
     if (physics.bounceX && physics.bounceY) {
@@ -58,18 +58,18 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
   }
 
   get hitPoints(): number {
-      return this._hitPoints;
+    return this._hitPoints;
   }
 
   set hitPoints(hitPoints: number) {
-      this._hitPoints = hitPoints;
+    this._hitPoints = hitPoints;
   }
   get jumpSound(): string {
-      return this._jumpSound;
+    return this._jumpSound;
   }
 
   set jumpSound(jumpSound: string) {
-      this._jumpSound = jumpSound;
+    this._jumpSound = jumpSound;
   }
 
   /**
@@ -77,10 +77,10 @@ export class Character extends Phaser.Physics.Arcade.Sprite {
    * @param physics
    */
   set physics(physics: Physics) {
-      this._physics = physics;
-      this.initPhysics(this.physics);
+    this._physics = physics;
+    this.initPhysics(this.physics);
   }
   get physics(): Physics {
-      return this._physics;
+    return this._physics;
   }
 }
