@@ -8,7 +8,7 @@ export default class TitleScreenScene extends Phaser.Scene {
   private music: Phaser.Sound;
 
   preload() {
-    this.load.audio("goatSong", ["./public/assets/audio/goatminjr.ogg"]);
+    this.load.audio("goatSong", ["/assets/audio/goatminjr.ogg"]);
   }
 
   create() {
