@@ -36,12 +36,12 @@ export default class GameScene extends Phaser.Scene {
         this.load.spritesheet('vgchk', '/assets/characters/vgchk.png', { frameWidth: 32, frameHeight: 24 });
 
         //this.load.image('sky', '/assets/scenes/sky.png');
-        this.load.image('appleWorld', '/assets/scenes/main/appleWorld.png');
-        this.load.image('ground', '/assets/platform.png');
-        this.load.image('star', '/assets/star.png');
-        this.load.image('bomb', '/assets/bomb.png');
-        this.load.image('fire', '/assets/fire.png');
-        this.load.image('rockets', '/assets/rocket.png');
+        this.load.image('appleWorld', '/assets/scenes/game/appleWorld.png');
+        this.load.image('ground', '/assets/scenes/game/platform.png');
+        this.load.image('star', '/assets/scenes/game/star.png');
+        this.load.image('bomb', '/assets/scenes/game/bomb.png');
+        this.load.image('fire', '/assets/scenes/game/fire.png');
+        this.load.image('rockets', '/assets/scenes/game/rocket.png');
 
         this.load.audio("goatSong", ["/assets/audio/goatminjr.ogg"]);
         this.load.audio("jumpSound", ["/assets/audio/hero_jump.wav"])
