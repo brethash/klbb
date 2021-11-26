@@ -31,20 +31,20 @@ export default class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet('dude', './assets/characters/dude.png', { frameWidth: 32, frameHeight: 48 });
-        this.load.spritesheet('potatohat', './assets/characters/potatohat.png', { frameWidth: 32, frameHeight: 54 });
-        this.load.spritesheet('vgchk', './assets/characters/vgchk.png', { frameWidth: 32, frameHeight: 24 });
+        this.load.spritesheet('dude', './public/assets/characters/dude.png', { frameWidth: 32, frameHeight: 48 });
+        this.load.spritesheet('potatohat', './public/assets/characters/potatohat.png', { frameWidth: 32, frameHeight: 54 });
+        this.load.spritesheet('vgchk', './public/assets/characters/vgchk.png', { frameWidth: 32, frameHeight: 24 });
 
-        //this.load.image('sky', './assets/scenes/sky.png');
-        this.load.image('appleWorld', './assets/scenes/main/appleWorld.png');
-        this.load.image('ground', './assets/platform.png');
-        this.load.image('star', './assets/star.png');
-        this.load.image('bomb', './assets/bomb.png');
-        this.load.image('fire', './assets/fire.png');
-        this.load.image('rockets', './assets/rocket.png');
+        //this.load.image('sky', './public/assets/scenes/sky.png');
+        this.load.image('appleWorld', './public/assets/scenes/main/appleWorld.png');
+        this.load.image('ground', './public/assets/platform.png');
+        this.load.image('star', './public/assets/star.png');
+        this.load.image('bomb', './public/assets/bomb.png');
+        this.load.image('fire', './public/assets/fire.png');
+        this.load.image('rockets', './public/assets/rocket.png');
 
-        this.load.audio("goatSong", ["./assets/audio/goatminjr.ogg"]);
-        this.load.audio("jumpSound", ["./assets/audio/hero_jump.wav"])
+        this.load.audio("goatSong", ["./public/assets/audio/goatminjr.ogg"]);
+        this.load.audio("jumpSound", ["./public/assets/audio/hero_jump.wav"])
     }
 
     create() {
